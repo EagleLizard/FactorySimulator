@@ -3,7 +3,7 @@ import Environment from './Environment/Environment';
 import {
   Silica, 
   Lime,
-  LiquidGlass
+  GlassComponent
 } from './I';
 
 main();
@@ -14,6 +14,6 @@ function main():void{
     new Silica(100),
     new Lime(10)
   );
-  env.addComponent(new LiquidGlass());
+  env.addComponent(new GlassComponent());
   env.run(20);
 }
