@@ -1,4 +1,4 @@
-import {Material} from 'I';
+import {Material} from '../I';
 
 export default class Steel extends Material {
   name:string;

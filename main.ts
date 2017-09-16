@@ -15,5 +15,5 @@ function main():void{
     new Lime(10)
   );
   env.addComponent(new LiquidGlass());
-  env.run(5);
+  env.run(20);
 }

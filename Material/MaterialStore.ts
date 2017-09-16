@@ -1,5 +1,10 @@
 import {IMaterial} from '../I';
 
+export type MaterialConsumeResult = {
+  success: boolean,
+  cancellerCallback:VoidFunction,
+  name:string
+};
 export class MaterialStore{
 
   materials:{[name:string]:IMaterial};
@@ -11,13 +16,18 @@ export class MaterialStore{
     }, {});
   }
 
-  consume(name:string, units:number){
+  consume(name:string, units:number):MaterialConsumeResult{
     let material = this.materials[name];
     if(material === undefined){
       console.log(`No material of type ${name} exists in the store`);
-      return;
+      return MaterialStore.getConsumeResult(false, ()=>{}, name);
     }
-    material.use(units);
+    if(material.units >= units){
+      material.use(units);
+      return MaterialStore.getConsumeResult(true, ()=>material.add(units), name);
+    }else{
+      return MaterialStore.getConsumeResult(false, ()=>{}, name);
+    }
   }
 
   add(material:IMaterial){
@@ -27,5 +37,17 @@ export class MaterialStore{
     }else{
       storeMaterial.add(material.units);
     }
+  }
+
+  private static getConsumeResult(
+    success:boolean, 
+    canceller:VoidFunction, 
+    name:string):MaterialConsumeResult
+  {
+    return{
+      success: success,
+      cancellerCallback: canceller,
+      name: name
+    };
   }
 }

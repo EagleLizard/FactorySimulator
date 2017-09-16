@@ -31,8 +31,8 @@ export default class Environment{
   run(numTimes?:number):void{
     setTimeout(()=>{
       this.clockCounter++;
-      console.log(`\nClock: ${this.clockCounter}\n`);
       this.performStep();
+      console.log(`\nClock: ${this.clockCounter}\n`);
       console.log(this.materialsStore);
       if(numTimes !== undefined && (this.clockCounter <= numTimes+2)){
         setTimeout(()=>this.run(numTimes-1));

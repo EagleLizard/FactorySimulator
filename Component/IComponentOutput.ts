@@ -1,4 +1,4 @@
-import {IComponentInput} from 'I';
+import {IComponentInput} from '../I';
 
 export type IComponentOutput = IComponentInput & {
   degradationFactor: number; 
