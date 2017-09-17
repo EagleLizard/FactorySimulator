@@ -8,13 +8,13 @@ import {
 
 export default class Environment{
 
-  clockIntervalMs:number;
+  numCycles:number;
   clockCounter:number;
   components:IComponent<IMaterial, IMaterial>[];
   materialsStore: MaterialStore;
 
-  constructor(clockIntervalMs:number){
-    this.clockIntervalMs = clockIntervalMs;
+  constructor(numCycles:number){
+    this.numCycles = numCycles;
     this.clockCounter = 0;
     this.components = [];
   }
@@ -29,12 +29,16 @@ export default class Environment{
   }
 
   run(numTimes?:number):void{
+    if(!numTimes && !this.clockCounter){
+      numTimes = this.numCycles;
+    }
     setTimeout(()=>{
       this.clockCounter++;
       this.performStep();
       console.log(`\nClock: ${this.clockCounter}\n`);
       console.log(this.materialsStore);
-      if(numTimes !== undefined && (this.clockCounter <= numTimes+2)){
+      if(numTimes !== undefined && (this.clockCounter <= this.numCycles)){
+        console.log(numTimes);
         setTimeout(()=>this.run(numTimes-1));
       }else if(numTimes === undefined){
         setTimeout(()=>this.run());
