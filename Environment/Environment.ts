@@ -1,7 +1,5 @@
 import { 
-  IComponent, 
-  IComponentInput, 
-  IComponentOutput,
+  IComponent,
   MaterialStore,
   IMaterial
 } from '../I';
@@ -9,12 +7,14 @@ import {
 export default class Environment{
 
   numCycles:number;
+  resolution:number;
   clockCounter:number;
   components:IComponent<IMaterial, IMaterial>[];
   materialsStore: MaterialStore;
 
-  constructor(numCycles:number){
+  constructor(numCycles:number, resolution:number){
     this.numCycles = numCycles;
+    this.resolution = resolution;
     this.clockCounter = 0;
     this.components = [];
   }
@@ -47,10 +47,12 @@ export default class Environment{
   }
 
   performStep():void{
-    this.components.forEach(component=>{
-      let outputMaterial = component.process(this.materialsStore);
-      this.addMaterial(outputMaterial);
-    });
+    for(let i = 0; i < this.resolution; ++i){
+      this.components.forEach(component=>{
+        let outputMaterial = component.process(this.materialsStore);
+        this.addMaterial(outputMaterial);
+      });
+    }
   }
 
   private addMaterial(material:IMaterial){

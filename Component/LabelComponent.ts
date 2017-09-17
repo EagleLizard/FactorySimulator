@@ -8,7 +8,7 @@ import {
 
 export class LabelComponent extends Component{
   input:IMaterial[];
-  output:Glass;
+  output:Label;
   constructor(){
     super(
       'GlassComponent',

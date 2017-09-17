@@ -17,7 +17,7 @@ import {
 main();
 
 function main():void{
-  let env = new Environment(100);
+  let env = new Environment(4, 10);
   env.initMaterialStore(
     new Silica(100),
     new Lime(10),
